@@ -13,9 +13,9 @@ type submitProp={
     language:string
 }
 
-app.post("/submit",async(req:{body:submitProp},res)=>{
+app.post("/submit",async(req,res)=>{
         const {Problemid,code,language}=req.body
-        const userId=122 //will ectract from jwt
+        const userId=req.query.userId //will ectract from jwt
         
         try{
             //put in que

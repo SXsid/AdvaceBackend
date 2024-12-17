@@ -13,7 +13,7 @@ async function SubmissionHandler(data:string){
     console.log("computinal happing..");
     
     await new Promise(resolve=>setTimeout(resolve,3000))
-    redisClient.publish("problem_done",JSON.stringify({Problemid,status:"Accepted"}))
+    redisClient.publish("problem_done",JSON.stringify({userId,Problemid,status:"Accepted"}))
     console.log("code exceute for the problem id:",Problemid);
     
     
