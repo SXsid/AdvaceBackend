@@ -1,0 +1,17 @@
+{
+  
+    "compilerOptions": {
+      "target": "ES2022",
+      "module": "commonjs",
+      "rootDir": "./src",
+      "outDir": "./public",
+      "esModuleInterop": true,
+      "forceConsistentCasingInFileNames": true,
+      "strict": true,
+      "skipLibCheck": true
+    },
+  "include": [
+   "src/**/*.ts", 
+    "src/Types/types.d.ts"
+  ]
+}
