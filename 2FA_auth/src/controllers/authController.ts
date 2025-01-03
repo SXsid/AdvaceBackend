@@ -25,17 +25,35 @@ class authController{
     }
     
     static async loginHandler(req:Request,res:Response){
-        console.log(req.user)
-        res.send("user logged in ")
+       if(req.user){
+        res.status(200).send("user logged in ")
+       }else{
+        res.send("failed whiel loggin in")
+       }
 
     }
     
     static async logoutHandler(req:Request,res:Response){
-        res.send("hello user ")
+        try{
+            const logoutResponse = await authServices.logout(req,res)
+            res.status(logoutResponse.statusCode).json({
+                success:logoutResponse.success,
+                msg:logoutResponse.message
+            })
+        }catch(e){
+            res.status(500).send("unable to logout")
+        }
 
     }
     static async statusHandler(req:Request,res:Response){
-        res.send("kye re bdhwe")
+       
+            res.status(200).json({
+                msg:"user is looged in",
+                email:req.user?.email,
+                is2fa:req.user?.is2fa
+                
+            })
+       
     }
 }
 

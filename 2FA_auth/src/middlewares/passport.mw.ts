@@ -4,7 +4,6 @@ import bcrypt from "bcrypt";
 import { Express } from "express";
 import authServices from "../services/authServices";
 import redisClient from "../utils/redisClient";
-import prisma from "../utils/prismaClient";
 
 
 export function initPassport(app: Express) {
@@ -17,7 +16,7 @@ export function initPassport(app: Express) {
         { usernameField: "email"}, async (email, password, done) => {
             try {
                 if (!email) { done(null, false) }
-                const user =await authServices.isExist(email);
+                const user =await authServices.isExist({email});
             
                 if (user&& user.email === email && await bcrypt.compare(password, user.password)) {
                     done(null, user);
@@ -42,7 +41,7 @@ export function initPassport(app: Express) {
                 if(cachedUser){
                     done(null,JSON.parse(cachedUser))
                 }else{
-                    const user = await prisma.user.findUnique({where:{id}})
+                    const user = await authServices.isExist({id})
                     if(user){
                         await  redisClient.set(`user:${user.id}`,JSON.stringify(user),{EX:3600})
                     }

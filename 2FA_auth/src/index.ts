@@ -9,6 +9,8 @@ dotenv.config()
 
 const app =express()
 const PORT = Number(process.env.PORT) ||8080
+
+
 setupMiddleware(app)
 initPassport(app)
 app.use("/api/auth",authRouter)

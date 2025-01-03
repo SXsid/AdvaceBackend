@@ -11,9 +11,9 @@ router.post("/register",authController.registerHandler)
 //passport middleware for emial and password verifiy
 router.post("/login",passport.authenticate("local",{failureMessage:true}),authController.loginHandler)
 
-router.post("/logout",isAuthenticated,isAccessed("user"),authController.logoutHandler)
+router.post("/logout",isAuthenticated,authController.logoutHandler)
 
-router.get("/status",isAccessed("admin"),authController.statusHandler)
+router.get("/status",isAuthenticated,authController.statusHandler)
 
 
 
